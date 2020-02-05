@@ -1,5 +1,15 @@
 #!/bin/sh
 
+HAS_CHANGED=true
+
+if [ "$INPUT_CHECK_IF_CHANGED" ]; then
+    HAS_CHANGED=$(./gitdiff.sh ${INPUT_WORKING_DIRECTORY})
+fi
+
+if [ $HAS_CHANGED = false ]; then
+    exit 0;
+fi
+
 set -e
 
 BRANCH=$(echo $GITHUB_REF | rev | cut -f 1 -d / | rev)
@@ -18,13 +28,11 @@ echo "$INPUT_GCP_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
 
 # Prepare env vars if `env` is set to file 
 
-if [ "$INPUT_ENV" ]
-then
+if [ "$INPUT_ENV" ]; then
     ENVS=$(cat "$INPUT_ENV" | xargs | sed 's/ /,/g')
 fi
 
-if [ "$ENVS" ]
-then
+if [ "$ENVS" ]; then
     ENV_FLAG="--set-env-vars $ENVS"
 fi
 

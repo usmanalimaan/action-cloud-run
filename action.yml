@@ -5,6 +5,10 @@ branding:
   icon: "arrow-up-circle"
   color: "green"
 inputs:
+  check_if_changed:
+    description: "Set to true to check if working_directory has changes since the previous commit"
+    required: false
+    default: "false"
   working_directory:
     description: "Directory where the Dockerfile is to be found"
     required: true
