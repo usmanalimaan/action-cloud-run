@@ -5,9 +5,9 @@ branding:
   icon: "arrow-up-circle"
   color: "green"
 inputs:
-  # working_directory:
-  #   description: "Directory where the Dockerfile is to be found"
-  #   required: true
+  working_directory:
+    description: "Directory where the Dockerfile is to be found"
+    required: true
   service_key:
     description: "GCP service key with storage and run permissions"
     required: true

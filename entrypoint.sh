@@ -5,7 +5,7 @@ set -e
 BRANCH=$(echo $GITHUB_REF | rev | cut -f 1 -d / | rev)
 LOCAL_IMAGE_NAME=${GITHUB_REPOSITORY}_${INPUT_WORKING_DIRECTORY}:${GITHUB_SHA}
 GCR_IMAGE_NAME=${INPUT_REGISTRY}/${INPUT_PROJECT}/${LOCAL_IMAGE_NAME}
-SERVICE_NAME=${INPUT_SERVICE_NAME}_${BRANCH}
+SERVICE_NAME=${INPUT_WORKING_DIRECTORY}_${BRANCH}
 
 # service key
 
@@ -29,6 +29,8 @@ fi
 
 gcloud auth activate-service-account --key-file="$HOME"/gcloud.json --project "$INPUT_PROJECT"
 gcloud auth configure-docker
+
+cd $INPUT_WORKING_DIRECTORY
 
 docker build -t ${LOCAL_IMAGE_NAME} .
 docker tag ${LOCAL_IMAGE_NAME} ${GCR_IMAGE_NAME}
