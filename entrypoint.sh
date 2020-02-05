@@ -7,6 +7,9 @@ LOCAL_IMAGE_NAME=${GITHUB_REPOSITORY}_${INPUT_WORKING_DIRECTORY}:${GITHUB_SHA}
 GCR_IMAGE_NAME=${INPUT_REGISTRY}/${INPUT_PROJECT}/${LOCAL_IMAGE_NAME}
 SERVICE_NAME=${INPUT_WORKING_DIRECTORY}_${BRANCH}
 
+echo "BRANCH = ${BRANCH}"
+echo 
+
 # service key
 
 echo "$INPUT_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
@@ -21,8 +24,6 @@ fi
 if [ "$ENVS" ]
 then
     ENV_FLAG="--set-env-vars $ENVS"
-else
-    # ENV_FLAG="--clear-env-vars"
 fi
 
 # run 
