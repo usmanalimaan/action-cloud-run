@@ -1,25 +1,30 @@
-name: 'Cloud Run'
-description: 'Authenticate with gcloud, push image to GCR and deploy as a new revision to Cloud Run'
-author: 'David Stefan <stefda@gmail.com>'
+name: "Cloud Run"
+description: "Authenticate with gcloud, push image to GCR and deploy as a new revision to Cloud Run"
+author: "Bastian Kistner <bastian.kistner@gmail.com>"
 branding:
-  icon: 'arrow-up-circle'
-  color: 'green'
+  icon: "arrow-up-circle"
+  color: "green"
 inputs:
-  image:
-    description: 'Name of the docker image'
+  working_directory:
+    description: "Directory where the Dockerfile is to be found"
     required: true
-  service:
-    description: 'Name of the service in Cloud Run'
+  service_key:
+    description: "GCP service key with storage and run permissions"
     required: true
   project:
-    description: 'GCP project'
+    description: "GCP project"
     required: true
+  registry:
+    description: "GCP Registry (e.g. 'eu.gcr.io')"
+    required: false
+    default: eu.gcr.io
   region:
-    description: 'GCP region'
-    required: true
-  service key:
-    description: 'GCP service key with storage and run permissions'
-    required: true
+    description: "GCP region"
+    required: false
+    default: europe-west4
+  env:
+    description: "File path to environment configuration"
+    required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
