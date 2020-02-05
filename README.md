@@ -4,6 +4,8 @@ An GitHub Action for deploying revisions to Google Cloud Run.
 
 ## Usage
 
+Docker image
+
 In your actions workflow, somewhere after the step that builds
 `gcr.io/<your-project>/<image>`, insert this:
 
