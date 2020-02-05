@@ -1,5 +1,5 @@
-name: "Cloud Run"
-description: "Authenticate with gcloud, push image to GCR and deploy as a new revision to Cloud Run"
+name: "Cloud Run with docker build and push to GCR"
+description: "Authenticate with gcloud, build and push image to GCR and deploy as a new revision to Cloud Run"
 author: "Bastian Kistner <bastian.kistner@gmail.com>"
 branding:
   icon: "arrow-up-circle"
