@@ -8,7 +8,10 @@ inputs:
   working_directory:
     description: "Directory where the Dockerfile is to be found"
     required: true
-  service_key:
+  service_name:
+    description: "Cloud run service name"
+    required: true
+  gcp_service_key:
     description: "GCP service key with storage and run permissions"
     required: true
   project:
