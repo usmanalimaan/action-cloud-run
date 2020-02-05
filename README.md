@@ -11,7 +11,7 @@ In your actions workflow, somewhere after the step that builds
 - name: Deploy service to Cloud Run
   uses: stefda/action-cloud-run@1.0.0
   with:
-    working_directory: [service-api]
+    service_name: [service-api]
     service_key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
     project: [your-project]
     registry: [eu.gcr.io]
