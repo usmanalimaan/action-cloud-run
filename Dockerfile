@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:279.0.0
+FROM google/cloud-sdk
 
 COPY entrypoint.sh /entrypoint.sh
 COPY gitdiff.sh /gitdiff.sh
