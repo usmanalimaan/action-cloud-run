@@ -11,7 +11,7 @@ In your actions workflow, somewhere after the step that builds
 
 ```yaml
 - name: Deploy service to Cloud Run
-  uses: schliflo/action-cloud-run@1
+  uses: schliflo/action-cloud-run@1.0.1
   with:
     project: [your-project]
     service_name: [your-service]
