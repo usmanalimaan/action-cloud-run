@@ -6,8 +6,7 @@ Authenticate with gcloud, build and push image to GCR and deploy as a new revisi
 
 Docker image
 
-In your actions workflow, somewhere after the step that builds
-`gcr.io/<your-project>/<image>`, insert this:
+In your actions workflow, somewhere after the checkout step insert this:
 
 ```yaml
 - name: Deploy service to Cloud Run
