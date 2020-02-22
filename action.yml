@@ -16,7 +16,7 @@ inputs:
   service_name:
     description: "Cloud run service name"
     required: true
-  gcp_service_key:
+  key:
     description: "GCP service key with storage and run permissions"
     required: true
   project:

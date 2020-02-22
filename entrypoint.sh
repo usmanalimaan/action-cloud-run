@@ -29,7 +29,7 @@ echo "\n\n----------------------------------------------------------------------
 
 # service key
 
-echo "$INPUT_GCP_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
+echo "$INPUT_KEY" | base64 --decode > "$HOME"/gcloud.json
 
 # Prepare env vars if `env` is set to file
 

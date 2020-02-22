@@ -11,11 +11,11 @@ In your actions workflow, somewhere after the step that builds
 
 ```yaml
 - name: Deploy service to Cloud Run
-  uses: schliflo/action-cloud-run@1.0.1
+  uses: schliflo/action-cloud-run@1.0.4
   with:
     project: [your-project]
     service_name: [your-service]
-    service_key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
+    key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
     registry: [eu.gcr.io]
     region: [europe-west1]
     working_directory: [.]
