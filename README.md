@@ -11,7 +11,7 @@ In your actions workflow, somewhere after the step that builds
 
 ```bash
 - name: Deploy service to Cloud Run
-  uses: schliflo/action-cloud-run@1.0.0
+  uses: schliflo/action-cloud-run@1
   with:
     working_directory: [your-dir]
     service_key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
