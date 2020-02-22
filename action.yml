@@ -29,7 +29,7 @@ inputs:
   region:
     description: "GCP region"
     required: false
-    default: europe-west4
+    default: europe-west1
   env:
     description: "File path to environment configuration"
     required: false
