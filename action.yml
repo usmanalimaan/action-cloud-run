@@ -1,6 +1,6 @@
-name: "Cloud Run with docker build and push to GCR"
-description: "Authenticate with gcloud, build and push image to GCR and deploy as a new revision to Cloud Run"
-author: "Bastian Kistner <bastian.kistner@gmail.com>"
+name: "Cloud Run branch preview deployments with docker build and push to GCR"
+description: "Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run"
+author: "Florian Schlittenbauer <florian.schlittenbauer@gmail.com>"
 branding:
   icon: "arrow-up-circle"
   color: "green"
@@ -12,6 +12,7 @@ inputs:
   working_directory:
     description: "Directory where the Dockerfile is to be found"
     required: true
+    default: "."
   service_name:
     description: "Cloud run service name"
     required: true
@@ -34,4 +35,4 @@ inputs:
     required: false
 runs:
   using: "docker"
-  image: "docker://passionkind/github-action-cloud-run:latest"
+  image: "docker://schliflo/github-action-cloud-run:latest"

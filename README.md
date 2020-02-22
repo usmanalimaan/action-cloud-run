@@ -1,6 +1,6 @@
-# Github Action for Google Cloud Run
+# Github Action for Google Cloud Run branch preview deployments
 
-An GitHub Action for deploying revisions to Google Cloud Run.
+Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run.
 
 ## Usage
 
@@ -11,9 +11,9 @@ In your actions workflow, somewhere after the step that builds
 
 ```bash
 - name: Deploy service to Cloud Run
-  uses: stefda/action-cloud-run@1.0.0
+  uses: schliflo/action-cloud-run@1.0.0
   with:
-    working_directory: [service-api]
+    working_directory: [your-dir]
     service_key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
     project: [your-project]
     registry: [eu.gcr.io]
