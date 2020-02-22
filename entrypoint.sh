@@ -29,7 +29,7 @@ echo "\n\n----------------------------------------------------------------------
 
 # service key
 
-echo "$INPUT_GCP_SERVICE_KEY" | base64 --decode > "${HOME}/gcloud.json"
+echo "$INPUT_GCP_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
 
 # Prepare env vars if `env` is set to file
 
@@ -45,8 +45,8 @@ fi
 
 echo "\nActivate service account..."
 gcloud auth activate-service-account \
-  --key-file="${HOME}/gcloud.json" \
-  --project "${INPUT_PROJECT}"
+  --key-file="$HOME"/gcloud.json \
+  --project "$INPUT_PROJECT"
 
 echo "\nConfigure gcloud cli..."
 gcloud config set disable_prompts true
@@ -72,8 +72,8 @@ docker push "$GCR_IMAGE_NAME"
 
 echo "\nDeploy to cloud run..."
 gcloud beta run deploy ${SERVICE_NAME} \
-  --image "${GCR_IMAGE_NAME}:${GITHUB_SHA}" \
-  --region "${INPUT_REGION}" \
+  --image "$GCR_IMAGE_NAME:$GITHUB_SHA" \
+  --region "$INPUT_REGION" \
   --platform managed \
   --allow-unauthenticated \
   ${ENV_FLAG}
