@@ -1,4 +1,4 @@
-# Github Action for Google Cloud Run branch preview deployments
+# Github Action for Google Cloud Run branch deployments
 
 Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run.
 

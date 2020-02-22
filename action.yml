@@ -1,9 +1,9 @@
-name: "Cloud Run branch preview deployments with docker build and push to GCR"
+name: "Cloud Run branch deployment"
 description: "Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run"
 author: "Florian Schlittenbauer <florian.schlittenbauer@gmail.com>"
 branding:
-  icon: "arrow-up-circle"
-  color: "green"
+  icon: "upload-cloud"
+  color: "blue"
 inputs:
   check_if_changed:
     description: "Set to true to check if working_directory has changes since the previous commit"
