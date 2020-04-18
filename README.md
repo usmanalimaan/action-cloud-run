@@ -10,10 +10,10 @@ In your actions workflow, somewhere after the checkout step insert this:
 
 ```yaml
 - name: Deploy service to Cloud Run
-  uses: schliflo/action-cloud-run@1.0.0
+  uses: schliflo/action-cloud-run@1.1.0
   with:
-    project: [your-project]
-    service_name: [your-service]
+    project: [your-project-id]
+    service_name: [your-service-name]
     key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
     registry: [eu.gcr.io]
     region: [europe-west1]

@@ -78,3 +78,11 @@ gcloud beta run deploy ${SERVICE_NAME} \
   --platform managed \
   --allow-unauthenticated \
   ${ENV_FLAG}
+
+echo "\nGet deployment URL"
+URL=$(gcloud run services describe ${SERVICE_NAME} | grep Traffic | sed 's/Traffic: //')
+
+echo "\n\n-----------------------------------------------------------------------------\n\n"
+echo "Successfully deployed ${SERVICE_NAME} to ${URL}"
+echo "\n\n-----------------------------------------------------------------------------\n\n"
+
