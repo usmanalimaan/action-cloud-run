@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$INPUT_HOOK_BEGIN" ]; then
+  sh $INPUT_HOOK_BEGIN
+fi
+
 HAS_CHANGED=true
 IMAGE_POSTFIX=""
 
@@ -17,10 +21,18 @@ fi
 
 set -e
 
+if [ "$INPUT_HOOK_VARS_BEFORE" ]; then
+  sh $INPUT_HOOK_VARS_BEFORE
+fi
+
 BRANCH=$(echo $GITHUB_REF | rev | cut -f 1 -d / | rev)
 REPO=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')
 GCR_IMAGE_NAME=${INPUT_REGISTRY}/${INPUT_PROJECT}/${REPO}${IMAGE_POSTFIX}
 SERVICE_NAME=${INPUT_SERVICE_NAME}--${BRANCH}
+
+if [ "$INPUT_HOOK_VARS_AFTER" ]; then
+  sh $INPUT_HOOK_VARS_AFTER
+fi
 
 echo "\n\n-----------------------------------------------------------------------------\n\n"
 echo "BRANCH = ${BRANCH}"
@@ -44,6 +56,10 @@ fi
 
 # run
 
+if [ "$INPUT_HOOK_SETUP_BEFORE" ]; then
+  sh $INPUT_HOOK_SETUP_BEFORE
+fi
+
 echo "\nActivate service account..."
 gcloud auth activate-service-account \
   --key-file="$HOME"/gcloud.json \
@@ -58,7 +74,15 @@ gcloud config set run/platform managed
 echo "\nConfigure docker..."
 gcloud auth configure-docker --quiet
 
+if [ "$INPUT_HOOK_SETUP_AFTER" ]; then
+  sh $INPUT_HOOK_SETUP_AFTER
+fi
+
 cd ${GITHUB_WORKSPACE}/${INPUT_WORKING_DIRECTORY}
+
+if [ "$INPUT_HOOK_BUILD_BEFORE" ]; then
+  sh $INPUT_HOOK_BUILD_BEFORE
+fi
 
 echo "\nBuild image..."
 docker build \
@@ -68,8 +92,24 @@ docker build \
   --build-arg BRANCH_NAME=${BRANCH} \
   .
 
+if [ "$INPUT_HOOK_BUILD_AFTER" ]; then
+  sh $INPUT_HOOK_BUILD_AFTER
+fi
+
+if [ "$INPUT_HOOK_PUSH_BEFORE" ]; then
+  sh $INPUT_HOOK_PUSH_BEFORE
+fi
+
 echo "\nPush image..."
 docker push "$GCR_IMAGE_NAME"
+
+if [ "$INPUT_HOOK_PUSH_AFTER" ]; then
+  sh $INPUT_HOOK_PUSH_AFTER
+fi
+
+if [ "$INPUT_HOOK_DEPLOY_BEFORE" ]; then
+  sh $INPUT_HOOK_DEPLOY_BEFORE
+fi
 
 echo "\nDeploy to cloud run..."
 gcloud beta run deploy ${SERVICE_NAME} \
@@ -79,8 +119,18 @@ gcloud beta run deploy ${SERVICE_NAME} \
   --allow-unauthenticated \
   ${ENV_FLAG}
 
+
+if [ "$INPUT_HOOK_DEPLOY_AFTER" ]; then
+  sh $INPUT_HOOK_DEPLOY_AFTER
+fi
+
 echo "\nGet deployment URL"
 URL=$(gcloud run services describe ${SERVICE_NAME} | grep Traffic | sed 's/Traffic: //')
+echo "##[set-output name=cloud_run_service_url;]$URL"
+
+if [ "$INPUT_HOOK_END" ]; then
+  sh $INPUT_HOOK_END
+fi
 
 echo "\n\n-----------------------------------------------------------------------------\n\n"
 echo "Successfully deployed ${SERVICE_NAME} to ${URL}"
