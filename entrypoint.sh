@@ -28,7 +28,7 @@ fi
 BRANCH=$(echo $GITHUB_REF | rev | cut -f 1 -d / | rev)
 REPO=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')
 GCR_IMAGE_NAME=${INPUT_REGISTRY}/${INPUT_PROJECT}/${REPO}${IMAGE_POSTFIX}
-SERVICE_NAME=${INPUT_SERVICE_NAME}--${BRANCH}
+SERVICE_NAME=${INPUT_SERVICE_NAME}--${BRANCH} | tr '[:upper:]' '[:lower:]')
 
 if [ "$INPUT_HOOK_VARS_AFTER" ]; then
   sh $INPUT_HOOK_VARS_AFTER
