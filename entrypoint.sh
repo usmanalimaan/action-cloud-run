@@ -28,12 +28,14 @@ fi
 BRANCH=$(echo $GITHUB_REF | rev | cut -f 1 -d / | rev)
 REPO=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')
 GCR_IMAGE_NAME=${INPUT_REGISTRY}/${INPUT_PROJECT}/${REPO}${IMAGE_POSTFIX}
-SERVICE_NAME=$(echo "${INPUT_SERVICE_NAME}--${BRANCH}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
+SERVICE_NAME=$(echo "${INPUT_SERVICE_NAME}--${BRANCH}" | tr '[:upper:]' '[:lower:]' | sed 's/[_]/-/g')
 
 if [ "$INPUT_HOOK_VARS_AFTER" ]; then
   sh $INPUT_HOOK_VARS_AFTER
 fi
 
+echo "\n\n-----------------------------------------------------------------------------\n\n"
+echo "Deploying with schliflo/action-cloud-run 1.2.3"
 echo "\n\n-----------------------------------------------------------------------------\n\n"
 echo "BRANCH = ${BRANCH}"
 echo "GCR_IMAGE_NAME = ${GCR_IMAGE_NAME}"
