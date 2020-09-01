@@ -35,8 +35,6 @@ if [ "$INPUT_HOOK_VARS_AFTER" ]; then
 fi
 
 echo "\n\n-----------------------------------------------------------------------------\n\n"
-echo "Deploying with schliflo/action-cloud-run 1.2.3"
-echo "\n\n-----------------------------------------------------------------------------\n\n"
 echo "BRANCH = ${BRANCH}"
 echo "GCR_IMAGE_NAME = ${GCR_IMAGE_NAME}"
 echo "SERVICE_NAME = ${SERVICE_NAME}"
