@@ -99,7 +99,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: "Cloud Run: Deploy Service"
-        uses: schliflo/action-cloud-run@feature/github-deployments
+        uses: schliflo/action-cloud-run@2.0.0
         with:
           project: ${{ secrets.GCP_PROJECT }}
           service_name: your-service-name
@@ -124,7 +124,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: "Cloud Run: Delete Service"
-        uses: schliflo/action-cloud-run@feature/github-deployments
+        uses: schliflo/action-cloud-run@2.0.0
         with:
           project: ${{ secrets.GCP_PROJECT }}
           service_name: your-service-name
