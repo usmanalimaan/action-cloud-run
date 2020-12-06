@@ -13,6 +13,8 @@ Authenticate with gcloud, build and push image to GCR and deploy as a new revisi
 
   **Environments**
   
+  ![Environments](https://github.com/schliflo/action-cloud-run/blob/master/img/env_all.png?raw=true)
+  
   ![Environments](https://github.com/schliflo/action-cloud-run/blob/master/img/env.png?raw=true)
 
 ## Usage
