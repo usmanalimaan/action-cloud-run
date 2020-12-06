@@ -1,6 +1,14 @@
 FROM google/cloud-sdk
 
-COPY entrypoint.sh /entrypoint.sh
-COPY gitdiff.sh /gitdiff.sh
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update \
+    && apt-get install --no-install-recommends -y \
+    jq \
+    && apt-get autoremove -y \
+    && apt-get autoclean \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+COPY src/ /
+
+ENTRYPOINT ["/entrypoint.sh"]

@@ -2,26 +2,35 @@
 
 Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run.
 
-## Usage
+## Features
 
-Docker image
+- Sets `cloud_run_service_url` with the URL of your service as output.
+- Optionally uses GitHub Deployments and environments to show active Instances:
+  ![Pull Requests](https://github.com/schliflo/action-cloud-run/blob/master/img/pr.png?raw=true)
+  ![Environments](https://github.com/schliflo/action-cloud-run/blob/master/env.png?raw=true)
+
+## Usage
 
 In your actions workflow, somewhere after the checkout step insert this:
 
 ```yaml
-- name: Deploy service to Cloud Run
-  uses: schliflo/action-cloud-run@1.2.0
+- name: "Cloud Run: Deploy Service"
+  uses: schliflo/action-cloud-run@2.0.0
+  env:
+    # if set github deployments will be used
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
     # required
-    project: [your-project-id]
-    service_name: [your-service-name]
+    project: your-project-id
+    service_name: your-service-name
     key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
-    # optional
-    registry: [eu.gcr.io]
-    region: [europe-west1]
-    working_directory: [.]
-    check_if_changed: [false]
-    env: []
+    # optional settings
+    action: 'deploy'
+    registry: eu.gcr.io
+    region: europe-west1
+    platform: managed
+    working_directory: .
+    deploy_flags: '--allow-unauthenticated --port=80'
     # hooks (all optional)
     hook_begin: your/script.sh
     hook_vars_before: your/script.sh
@@ -43,3 +52,76 @@ gcloud service key with the following permissions:
 - Service Account User
 - Cloud Run Admin
 - Storage Admin
+
+
+You can also delete the service after branch deletion:
+
+```yaml
+- name: "Cloud Run: Delete Service"
+  uses: schliflo/action-cloud-run@2.0.0
+  env: 
+    # if set github deployments will be used
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+    # required
+    project: your-project-id
+    service_name: your-service-name
+    key: ${{ secrets.GCP_CLOUD_RUN_SERVICE_KEY }}
+    # optional settings
+    action: 'delete'
+    # all the other from above settings still apply
+    # ...
+```
+
+### Full example
+
+`deploy-cloud-run.yml`
+```yaml
+name: "Cloud Run: Deploy Service"
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: "Cloud Run: Deploy Service"
+        uses: schliflo/action-cloud-run@feature/github-deployments
+        with:
+          project: ${{ secrets.GCP_PROJECT }}
+          service_name: your-service-name
+          key: ${{ secrets.GCP_SA_KEY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+`delete-cloud-run.yml`
+```yaml
+name: "Cloud Run: Delete Service"
+
+on:
+  workflow_dispatch:
+  delete:
+
+jobs:
+  delete:
+    name: Delete
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: "Cloud Run: Delete Service"
+        uses: schliflo/action-cloud-run@feature/github-deployments
+        with:
+          project: ${{ secrets.GCP_PROJECT }}
+          service_name: your-service-name
+          key: ${{ secrets.GCP_SA_KEY }}
+          action: 'delete'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
