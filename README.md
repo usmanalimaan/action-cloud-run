@@ -7,7 +7,7 @@ Authenticate with gcloud, build and push image to GCR and deploy as a new revisi
 - Sets `cloud_run_service_url` with the URL of your service as output.
 - Optionally uses GitHub Deployments and environments to show active Instances:
   ![Pull Requests](https://github.com/schliflo/action-cloud-run/blob/master/img/pr.png?raw=true)
-  ![Environments](https://github.com/schliflo/action-cloud-run/blob/master/env.png?raw=true)
+  ![Environments](https://github.com/schliflo/action-cloud-run/blob/master/img/env.png?raw=true)
 
 ## Usage
 
