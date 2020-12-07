@@ -9,7 +9,7 @@ if [ "$GITHUB_TOKEN" ]; then
   case "$DEPLOY_ACTION" in
   create)
     echo -e "\nCreate GitHub Deployment for $BRANCH ($GITHUB_SHA) at https://github.com/$GITHUB_REPOSITORY ..."
-    CURL_COMMAND="curl -d '{\"ref\": \"$GITHUB_SHA\", \"required_contexts\": [], \"environment\": \"$BRANCH\", \"transient_environment\": true}' ${CURL_HEADERS} -X POST ${DEPLOY_API}"
+    CURL_COMMAND="curl -d '{\"ref\": \"$GITHUB_SHA\", \"required_contexts\": [], \"environment\": \"$BRANCH\", \"auto_merge\": false, \"transient_environment\": true}' ${CURL_HEADERS} -X POST ${DEPLOY_API}"
     ;;
 
   status_progress)
