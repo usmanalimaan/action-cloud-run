@@ -112,7 +112,7 @@ if [ "$INPUT_HOOK_PUSH_BEFORE" ]; then
 fi
 
 echo -e "\nPush image..."
-docker push "$GCR_IMAGE_NAME" --all-tags
+docker push "$GCR_IMAGE_NAME"
 
 if [ "$INPUT_HOOK_PUSH_AFTER" ]; then
   sh $INPUT_HOOK_PUSH_AFTER
