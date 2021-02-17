@@ -77,4 +77,4 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://schliflo/action-cloud-run:2.0.1"
+  image: "docker://schliflo/action-cloud-run:2.0.0"
