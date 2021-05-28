@@ -1,4 +1,4 @@
-name: "Cloud Run branch deployment"
+name: "Cloud Run branch deployment with env"
 description: "Authenticate with gcloud, build and push image to GCR and deploy as a new revision or branch preview to Cloud Run"
 author: "Florian Schlittenbauer <florian.schlittenbauer@gmail.com>"
 branding:
