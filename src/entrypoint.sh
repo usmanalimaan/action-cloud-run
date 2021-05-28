@@ -36,6 +36,16 @@ if [ "$INPUT_HOOK_VARS_AFTER" ]; then
   sh $INPUT_HOOK_VARS_AFTER
 fi
 
+# Prepare env vars if `env` is set to file 
+
+if [ "$INPUT_ENV" ]; then
+    ENVS=$(cat "$INPUT_ENV" | xargs | sed 's/ /,/g')
+fi
+
+if [ "$ENVS" ]; then
+    ENV_FLAG="--set-env-vars $ENVS"
+fi
+
 echo -e "\n\n-----------------------------------------------------------------------------\n\n"
 echo "ACTION:         ${INPUT_ACTION}"
 echo "BRANCH:         ${BRANCH}"
@@ -125,6 +135,7 @@ fi
 echo -e "\nDeploy to cloud run..."
 gcloud run deploy ${SERVICE_NAME} \
   --image "$GCR_IMAGE_NAME:$GITHUB_SHA" \
+  ${ENV_FLAG} \
   ${INPUT_DEPLOY_FLAGS}
 
 
