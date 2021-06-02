@@ -39,11 +39,11 @@ fi
 # Prepare env vars if `env` is set to file 
 
 if [ "$INPUT_ENV" ]; then
-    ENVS=$(cat "$INPUT_ENV" | xargs | sed 's/ /,/g')
+    ENVS=$(cat "$INPUT_ENV" | xargs | sed 's/ /##/g')
 fi
 
 if [ "$ENVS" ]; then
-    ENV_FLAG="--set-env-vars $ENVS"
+    ENV_FLAG="--set-env-vars ^##^$ENVS"
 fi
 
 echo -e "\n\n-----------------------------------------------------------------------------\n\n"
