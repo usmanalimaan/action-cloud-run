@@ -144,7 +144,7 @@ if [ "$INPUT_HOOK_DEPLOY_AFTER" ]; then
 fi
 
 echo -e "\nGet deployment URL"
-URL=$(gcloud run services describe ${SERVICE_NAME} | grep Traffic | sed 's/Traffic: //')
+URL=$(gcloud run services describe ${SERVICE_NAME} --platform managed --format 'value(status.url)' | awk '{print $1}')
 echo "##[set-output name=cloud_run_service_url;]$URL"
 
 if [ "$INPUT_HOOK_END" ]; then
